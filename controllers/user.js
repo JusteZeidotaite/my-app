@@ -4,10 +4,12 @@ const UserModel = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+require('dotenv').config();
+
 
 module.exports.LOGIN = async (req, res) => {
   try {
-
+console.log("it's working")
     const user = await UserModel.findOne({ email: req.body.email});
 
         if (!user) {
@@ -16,14 +18,16 @@ module.exports.LOGIN = async (req, res) => {
 
       bcrypt.compare(req.body.password, user.password, (err, isPasswordMatch) => {
 
-        if (isPasswordMatch) {
+        if (isPasswordMatch) { 
+          console.log(user.email)
+          console.log(user.id)
           const token = jwt.sign(
             {
               email:user.email,
               userId: user.id,
             },
             process.env.JWT_SECRET,
-            { EXPIRESiN: "24h" },
+            { expiresIn: "24h" },
             {
               algorithm: "RS256",
             }
@@ -40,7 +44,7 @@ module.exports.LOGIN = async (req, res) => {
     
   } catch (err) {
     console.log("ERR", err);
-    res.status(500).json({ response: "ERROR, please try later" });
+    return res.status(500).json({ response: "ERROR, please try later" });
   }
 };
 

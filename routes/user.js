@@ -12,7 +12,7 @@ const {
 } = require("../controllers/user");
 
 router.post("/user", INSERT_USER);
-router.post("/logIn", LOGIN);
+router.post("/logIn",  LOGIN);
 router.get("/users", authMiddleware, GET_ALL_USERS);
 router.get("/user/:id", GET_USER_BY_ID);
 router.delete("/user/:id", authMiddleware, DELETE_USER_BY_ID);

@@ -9,7 +9,7 @@ module.exports.INSERT_SUMMARY_CARD = async (req, res) => {
     title: req.body.title,
     contentText: req.body.contentText,
     creatorId: req.body.userId,
-  });
+  });d
 
   const savedSummary = await summary.save();
 
